@@ -3,21 +3,11 @@ import DATA from "../data/index";
 import { Freighters } from "../data/types";
 
 interface InitialState {
-  transportMode: string;
-  countryOrig: string;
-  regionOrig: string;
-  countryDest: string;
-  regionDest: string;
   freightersList: Freighters[];
   selectedFreighter: any;
 }
 
-const initialState: InitialState = {
-  transportMode: "",
-  countryOrig: "",
-  regionOrig: "",
-  countryDest: "",
-  regionDest: "",
+export const initialState: InitialState = {
   freightersList: [],
   selectedFreighter: null,
 };
