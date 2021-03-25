@@ -1,7 +1,7 @@
 // 563492ad6f91700001000001dc9aa6b52d8246b1a454f08bde71b654
 import React, { useEffect, useState } from "react";
 
-import { createClient } from "pexels";
+import { createClient, PhotosWithTotalResults, ErrorResponse } from "pexels";
 
 /**
  * Diego:
@@ -10,25 +10,25 @@ import { createClient } from "pexels";
 const client = createClient(process.env.REACT_APP_PEXELS_API as string);
 
 const Picture: React.FC<{ search: string }> = ({ search }) => {
-  const [image, setImage] = useState<any>();
+  const [image, setImage] = useState<PhotosWithTotalResults>();
   const query = `${search} cargo`;
 
   useEffect(() => {
-    if (search) {
-      client.photos.search({ query, per_page: 1 }).then((photos) => {
-        setImage(photos);
-      });
+    async function fetchPhoto() {
+      try {
+        const photos = await client.photos.search({ query, per_page: 1 });
+        setImage(photos as PhotosWithTotalResults);
+      } catch (error: any) {
+        const err = error as ErrorResponse;
+        console.error(err.error);
+      }
     }
+    fetchPhoto();
   }, [search, query]);
 
-  return (
-    // eslint-disable-next-line jsx-a11y/img-redundant-alt
-    <img
-      src={image?.photos[0]?.src.landscape}
-      alt={image?.photos[0]?.url}
-      width="600"
-    />
-  );
+  const alt = image?.photos[0].url;
+
+  return <img src={image?.photos[0]?.src.landscape} alt={alt} width="600" />;
 };
 
 export default Picture;

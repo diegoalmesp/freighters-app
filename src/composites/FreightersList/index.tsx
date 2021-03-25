@@ -58,18 +58,20 @@ const FreightersList: React.FC = () => {
   }
 
   return (
-    <section>
+    <div>
       {!freighters.length && (
         <Message type={MessageType.Warning}>
           we couldn't find any data, try again with different filters...
         </Message>
       )}
       {!!freighters.length && (
-        <Message>Currently displaying {freighters.length} results</Message>
+        <Message>Currently displaying {freighters.length} {freighters.length === 1 ? 'result' : 'results'}</Message>
       )}
-      {freighters.map((f, index) => (
-        <FreightListItem {...f} key={index} onClick={handleListItemClick} />
-      ))}
+      <section id="freighters_list">
+        {freighters.map((f, index) => (
+          <FreightListItem {...f} key={index} onClick={handleListItemClick} />
+        ))}
+      </section>
       {/* suspense provides a fallback WHILE the modal is being loaded in the DOM */}
       <Suspense fallback={<div>Loading...</div>}>
         <DetailsModal
@@ -78,7 +80,7 @@ const FreightersList: React.FC = () => {
           freighter={selectedFreighter}
         />
       </Suspense>
-    </section>
+    </div>
   );
 };
 

@@ -63,6 +63,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 - react-star-rating-component - simple library to display ratings. I picked this one because you can easily install the types as another npm package.
 
+- cypress implemented with typescript for intellisense
+
 ### Missing
 
 If I had more time to work on this app I would:
